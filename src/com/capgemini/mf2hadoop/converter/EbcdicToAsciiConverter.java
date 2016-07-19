@@ -2,9 +2,10 @@ package com.capgemini.mf2hadoop.converter;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
-
 import com.capgemini.mf2hadoop.constants.Mf2HadoopConstants;
 import com.capgemini.mf2hadoop.utils.MF2HadoopUtils;
+import org.apache.commons.io.FileUtils;
+
 
 public class EbcdicToAsciiConverter {
 	

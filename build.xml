@@ -54,7 +54,7 @@
 
 	<target name="compile" depends="init" description="compile the source ">
 		<!-- Compile the java code from ${src.dir} into ${build.dir} -->
-		<classpath refid="classpath.build"/> 
+		<!--<classpath refid="classpath.build"/> -->
 		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" />
 	</target>
 

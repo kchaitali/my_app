@@ -14,6 +14,7 @@
 	
 	<!-- Output, Jar -->
 	<property name="dist.dir" location="dist" />
+  	<property name="lib.dir" value="lib" /> 
 
 	<target name="init">
 		<!-- Create the time stamp -->

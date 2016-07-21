@@ -54,6 +54,7 @@
 
 	<target name="compile" depends="init" description="compile the source ">
 		<!-- Compile the java code from ${src.dir} into ${build.dir} -->
+		<classpath refid="classpath.build"/> 
 		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" />
 	</target>
 
@@ -68,6 +69,7 @@
 		    	<!-- <lib dir="${lib.dir}/" includes="commons-io-2.4.jar"/> -->
 			<!-- create an executable Jar -->
 			<attribute name="Main-Class" value="com.capgemini.mf2hadoop.Mf2HadoopHDFS" />
+		    <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
 		    </manifest>
 		</jar>
 	</target>
@@ -79,5 +81,4 @@
 	
 	<!-- Default, run this -->
 	<target name="main" depends="clean, compile, dist" />
-	
 </project>

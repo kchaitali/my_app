@@ -35,6 +35,7 @@
 		<!-- Put everything in ${build} into the {$projectName}-${DSTAMP}.jar file -->
 		<jar jarfile="${dist.dir}/${projectName}-${DSTAMP}.jar" basedir="${build.dir}" >
 		    <manifest>
+		    <lib dir="${lib.dir}/" includes="log4j.jar"/>
 			<!-- create an executable Jar -->
 			<attribute name="Main-Class" value="com.capgemini.mf2hadoop.Mf2HadoopHDFS" />
 		    </manifest>

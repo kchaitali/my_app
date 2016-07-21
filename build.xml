@@ -1,4 +1,4 @@
-<project name="AntmRapidMFToHadoop" default="main" basedir=".">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="AntmRapidMFToHadoop" default="main" basedir=".">
 	<description>
 		Create a Java Project (JAR) with Ant build script
 	</description>
@@ -16,6 +16,35 @@
 	<property name="dist.dir" location="dist" />
   	<property name="lib.dir" value="lib" /> 
 
+	<!-- ivy start -->
+		<!-- ivy to get dependencies and copy to project lib folder automatically -->
+		<target name="resolve" description="retrieve dependencies with ivy">
+			<ivy:retrieve />
+		</target>
+	
+	<!-- install ivy -->
+		<target name="ivy" description="Install ivy">
+			<mkdir dir="${user.home}/.ant/lib" />
+			<get dest="${user.home}/.ant/lib/ivy.jar" 
+				src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0-rc1/ivy-2.4.0-rc1.jar" />
+		</target>
+		<!-- ivy end -->
+	
+	<!-- external libraries classpath, we don't need sources and javadoc -->
+		<path id="classpath">
+			<fileset dir="${basedir}/">
+				<include name="${lib.dir}/*.jar" />
+				<exclude name="${lib.dir}/*sources.jar"/>
+				<exclude name="${lib.dir}/*javadoc.jar"/>
+			</fileset>
+		</path>
+	
+	<target name="copy-dependencies">
+			<copy todir="${dist.lib.dir}">
+				<fileset dir="${lib.dir}" includes="**/*.jar" excludes="**/*sources.jar, **/*javadoc.jar" />
+			</copy>
+		</target>
+	
 	<target name="init">
 		<!-- Create the time stamp -->
 		<tstamp />
@@ -28,7 +57,7 @@
 		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" />
 	</target>
 
-	<target name="dist" depends="compile" description="package, output to JAR">
+	<target name="dist" depends="compile,copy-dependencies" description="package, output to JAR">
 
 		<!-- Create the distribution directory -->
 		<mkdir dir="${dist.dir}" />
@@ -36,7 +65,7 @@
 		<!-- Put everything in ${build} into the {$projectName}-${DSTAMP}.jar file -->
 		<jar jarfile="${dist.dir}/${projectName}-${DSTAMP}.jar" basedir="${build.dir}" >
 		    <manifest>
-		    <lib dir="${lib.dir}/" includes="commons-io-2.4.jar"/>
+		    	<!-- <lib dir="${lib.dir}/" includes="commons-io-2.4.jar"/> -->
 			<!-- create an executable Jar -->
 			<attribute name="Main-Class" value="com.capgemini.mf2hadoop.Mf2HadoopHDFS" />
 		    </manifest>

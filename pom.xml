@@ -4,6 +4,7 @@
   <artifactId>mRapidMFToHadoop</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Data_Ingestion_Framework</name>
+  <packaging>jar</packaging>
   
   <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
  <dependencies>
@@ -50,6 +51,29 @@
         </configuration>
       </plugin>
       
+      <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+				</configuration>
+			</plugin>
+      
+      <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+				  <archive>
+					<manifest>
+						<!-- Jar file entry point -->
+						<mainClass>com.capgemini.mf2hadoop.Mf2HadoopHDFS</mainClass>
+						<mainClass>com.capgemini.mf2hadoop.Mf2HadoopHIVE</mainClass>
+					</manifest>
+				  </archive>
+				</configuration>
+			</plugin>
       
     </plugins>
   </build>
